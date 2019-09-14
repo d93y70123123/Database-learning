@@ -1,4 +1,5 @@
 # OracleDB安裝
+Oracle19c聽說是12c的終極版，至少提供高級支援2023年1月底。
 oracle的資料庫安裝相對麻煩，以我查詢到的資料有:
 1. 圖形介面安裝
 2. 不用圖形介面安裝(使用rpm安裝)  
@@ -56,7 +57,7 @@ Database configuration completed successfully. The passwords were auto generated
 # vim .bash_profile
 export ORACLE_SID=ORCLCDB
 export ORACLE_BASE=/opt/oracle/oradata
-export ORACLE_HOME=/opt/oracle/product/18c/dbhome_1
+export ORACLE_HOME=/opt/oracle/product/19c/dbhome_1
 export PATH=$PATH:$ORACLE_HOME/bin
 
 # . .bash_profile
@@ -79,3 +80,8 @@ Version 19.3.0.0.0
 
 SQL>
 ```
+
+參考資料
+< Centoswiki-在CentOS7上安裝Oracle資料庫12c > : https://wiki.centos.org/zh-tw/HowTos/Oracle12onCentos7#head-8ae990a0a280db12a14fc62f8701aaafeb4f81ff  
+< Oracle Database 18c:Install from RPM Package > : https://www.server-world.info/en/note?os=CentOS_7&p=oracle18c&f=6  
+< OracleDB圖形化安裝影片教學 > : https://www.youtube.com/watch?v=ZvzFNqLRK7w  
