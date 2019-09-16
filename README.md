@@ -23,6 +23,10 @@ oracle的資料庫安裝相對麻煩，以我查詢到的資料有:
 需要下載上述兩項東西  ((*注意，要在oracle官網上下載需要註冊會員。  
 
 兩個安裝包會順便建立使用者跟群組還有設定其他系統參數。
+```
+# yum -y install oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm
+# yum -y install oracle-database-ee-19c-1.0-1.x86_64.rpm
+```
 
 ## 建立資料庫
 安裝完oracledb跟preinstall之後，可以使用oracle提供的腳本建立資料庫。
