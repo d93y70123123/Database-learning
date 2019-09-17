@@ -64,6 +64,8 @@ Database configuration completed successfully. The passwords were auto generated
 ## 設定環境變數
 接著需要將指令加入bash_profile
 ```
+# su - oracle
+
 # vim .bash_profile
 export ORACLE_SID=ORCLCDB
 export ORACLE_BASE=/opt/oracle/oradata
