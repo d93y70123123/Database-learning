@@ -15,7 +15,7 @@
 |:----------:|:-----------:|
 |     SQL    |CHAR, VARCHAR, BINARY,INTEGER、SMALLINT|
 |    MySQL   |BIT、INT, SMALLINT, TINYINT, MEDIUMINT, BIGINT,DECIMAL, NUMERIC,FLOAT,DOUBLE,DOUBLE PRECISION|
-|   Oracle   |     CHAR, VARCHAR2, VARCHAR,      |
+|   Oracle   |     CHAR, VARCHAR2, VARCHAR,NCHAR and NVARCHAR2、(Rowid Data Types)|
 
 |    資料庫   |    運算子   |
 |:----------:|:-----------:|
