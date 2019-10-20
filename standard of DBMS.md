@@ -13,9 +13,12 @@
    
 |    資料庫   |   資料型態  |
 |:----------:|:-----------:|
-|     SQL    |CHAR, VARCHAR, BINARY,INTEGER、SMALLINT|
-|    MySQL   |BIT、INT, SMALLINT, TINYINT, MEDIUMINT, BIGINT,DECIMAL, NUMERIC,FLOAT,DOUBLE,DOUBLE PRECISION|
-|   Oracle   |     CHAR, VARCHAR2, VARCHAR,NCHAR and NVARCHAR2、(Rowid Data Types)|  
+|     SQL    |CHARACTER、CHARACTER VARYING、NATIONAL CHARACTER、NATIONAL CHARACTER VARYING、BIT、BIT VARYING|
+|  SQL-數字  |NUMERIC、DECIMAL、INTEGER、SMALLINT、FLOAT、REAL、DOUBLE PRECISION|
+|  SQL-時間  |DATE、TIME、TIMESTAMP、TIME WITH TIME ZONE、TIMESTAMP WITH TIME ZONE、INTERVAL|
+|SQL-間隔資料類型|INTERVAL|
+|    MySQL   |TINYINT、MEDIUMINT、BIGINT、DOUBLE[8.0.17後不推薦]|
+|   Oracle   |VARCHAR2、(Rowid Data Types)|  
 
 |    資料庫   |    運算子   |
 |:----------:|:-----------:|
@@ -32,7 +35,8 @@
 
 
 ## 參考資料  
-SQLwiki[function]：https://zh.wikipedia.org/wiki/SQL#%E6%A8%99%E6%BA%96%E5%8C%96  
+SQLwiki[function]：https://zh.wikipedia.org/wiki/SQL#%E6%A8%99%E6%BA%96%E5%8C%96
+SQL92standard：https://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt  
 MySQL-operators：https://dev.mysql.com/doc/refman/8.0/en/non-typed-operators.html  
 MySQL-function：https://dev.mysql.com/doc/refman/8.0/en/func-op-summary-ref.html  
 MySQL-datatypes：https://dev.mysql.com/doc/refman/8.0/en/data-types.html  
