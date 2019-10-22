@@ -36,10 +36,12 @@
 
 ## 參考資料  
 SQLwiki[function]：https://zh.wikipedia.org/wiki/SQL#%E6%A8%99%E6%BA%96%E5%8C%96
-SQL92standard：https://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt  
+SQL92standard[4.1-4.5,5.1,5.2]：https://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt  
 MySQL-operators：https://dev.mysql.com/doc/refman/8.0/en/non-typed-operators.html  
 MySQL-function：https://dev.mysql.com/doc/refman/8.0/en/func-op-summary-ref.html  
 MySQL-datatypes：https://dev.mysql.com/doc/refman/8.0/en/data-types.html  
-
-
+Oracle資料型態：https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/Data-Types.html#GUID-A3C0D836-BADB-44E5-A5D4-265BA5968483  
+Oracle運算子：https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/Operators.html#GUID-874EFABC-F473-44A3-BC93-CDCAC28B131A  
+Oracle函式：https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/Functions.html#GUID-D079EFD3-C683-441F-977E-2C9503089982
+  
 *僅作紀錄用
