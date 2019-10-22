@@ -23,14 +23,14 @@
 |    資料庫   |    運算子   |
 |:----------:|:-----------:|
 |     SQL    |％、＆、｜、｜｜、＊、＋、，、－、。、／、＜、＝、＞、ˍ、＜＞、＞＝、＜＝、AND、OR、NOT、BETWEEN、IN、LIKE、IS、NULL、ALL、（ANY SOME）、EXISTS、MATCH、OVERLAPS、UNIQUE、：、（、）、；、？、〔、〕、。。、”、’|
-|    MySQL   |[MySQL運算子](https://dev.mysql.com/doc/refman/8.0/en/non-typed-operators.html)|
-|   Oracle   ||  
+|    MySQL   |<=>、!=、:=、REGEXP、CASE、WHEN、THEN、ELSE、XOR|
+|   Oracle   |MULTISET EXCEPT、MULTISET INTERSECT、MULTISET UNION、IS OF、Compound|  
 
 |    資料庫   |    函式   |
 |:----------:|:-----------:|
 |     SQL    |AVG、COUNT、FIRST、MAX、MIN、STDEV、STDEVP、SUM、VAR、VARP、UCASE、LCASE、MID、LEN、INSTR、LEFT、RIGHT、ROUND、MOD、NOW、FORMAT、DATEDIFF|
 |    MySQL   |[MySQL函式](https://dev.mysql.com/doc/refman/8.0/en/func-op-summary-ref.html)|
-|   Oracle   |         |  
+|   Oracle   |[Oracle函式](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/Functions.html#GUID-D079EFD3-C683-441F-977E-2C9503089982)|  
 
 
 
