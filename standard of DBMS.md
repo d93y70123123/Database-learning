@@ -22,7 +22,7 @@
 
 |    資料庫   |    運算子   |
 |:----------:|:-----------:|
-|     SQL    |%、&、｜、｜｜、＊、+、,、-、.、/、<、=、>、_、<>、>=、<=、AND、OR、NOT、BETWEEN、IN、LIKE、IS、NULL、ALL、(ANY SOME)、EXISTS、MATCH、OVERLAPS、UNIQUE、:、(、)、;、?、[、]、..、"、'|
+|     SQL    |％、＆、｜、｜｜、＊、＋、，、－、。、／、＜、＝、＞、ˍ、＜＞、＞＝、＜＝、AND、OR、NOT、BETWEEN、IN、LIKE、IS、NULL、ALL、（ANY SOME）、EXISTS、MATCH、OVERLAPS、UNIQUE、：、（、）、；、？、〔、〕、。。、”、’|
 |    MySQL   |[MySQL運算子](https://dev.mysql.com/doc/refman/8.0/en/non-typed-operators.html)|
 |   Oracle   ||  
 
