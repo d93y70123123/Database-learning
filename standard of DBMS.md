@@ -35,7 +35,7 @@
 
 
 ## 參考資料  
-SQLwiki[function]：https://zh.wikipedia.org/wiki/SQL#%E6%A8%99%E6%BA%96%E5%8C%96
+SQLwiki[function]：https://zh.wikipedia.org/wiki/SQL#%E6%A8%99%E6%BA%96%E5%8C%96  
 SQL92standard[4.1-4.5,5.1,5.2]：https://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt  
 MySQL-operators：https://dev.mysql.com/doc/refman/8.0/en/non-typed-operators.html  
 MySQL-function：https://dev.mysql.com/doc/refman/8.0/en/func-op-summary-ref.html  
