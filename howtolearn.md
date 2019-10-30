@@ -1,16 +1,16 @@
 # Mysql資料庫  
 資料庫管理系統(Database Management System,DBMS)是一種管理資料庫的大型軟體，是用於建立、使用和維護資料庫。  
 具有代表性的資料管理系統有：Oracle、Microsoft SQL Server、Access、MySQL及PostgreSQL等，這邊使用的是MySQL做介紹。  
-說說為什麼會選擇MySQL:
-* 體積小
-* 安裝速度快
-* 成本低
-* 開源
-* 支援多種作業系統。
+說說為什麼會選擇MySQL:  
+* 體積小  
+* 安裝速度快  
+* 成本低  
+* 開源  
+* 支援多種作業系統。  
 
 ## 安裝環境  
-作業系統:centos7
-MySQL版本:5.5.64
+作業系統:centos7  
+MySQL版本:5.5.64  
 
 ## 安裝步驟  
 1. 安裝前先進行全系統更新  
@@ -99,7 +99,39 @@ Query OK, 1 row affected (0.00 sec)
 
 ## 建立資料表  
 資料庫完成後就是資料表，這是最頻繁使用的地方了，這邊分成建立資料表、新增資料、刪除資料、修改資料。  
-建立資料表:
-新增資料:
-刪除資料:
-修改資料:
+建立資料表:  
+Create table 表格名 (
+欄位名1 格式1,  
+欄位名2 格式2 default 內定值,  
+欄位名3 格式3 CONSTRAINT 限制名  
+)  
+```
+```  
+查看資料表:  
+show tables;  
+```
+```  
+新增資料:  
+insert into [tablename] values('資料1','資料2'...);
+```
+```  
+查看資料:  
+select * from [tablename];
+```
+```  
+刪除資料:  
+delete  
+```
+```
+
+修改資料:  
+alter   
+```
+```  
+
+有必要的話也可以用刪除:  
+drop table [tablename];  
+```
+```  
+
+## 談談select的用法  
