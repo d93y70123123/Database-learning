@@ -1,11 +1,11 @@
-# Mysql資料庫  
+# Mysql/mariadb資料庫  
 資料庫管理系統(Database Management System,DBMS)是一種管理資料庫的大型軟體，是用於建立、使用和維護資料庫。  
 具有代表性的資料管理系統有：Oracle、Microsoft SQL Server、Access、MySQL及PostgreSQL等，這邊使用的是MySQL做介紹。  
 說說為什麼會選擇MySQL:  
 * 體積小  
 * 安裝速度快  
 * 成本低  
-* 開源  
+* 開源(免錢的意思啦)  
 * 支援多種作業系統。  
 
 ## 安裝環境  
@@ -101,11 +101,16 @@ Query OK, 1 row affected (0.00 sec)
 資料庫完成後就是資料表，這是最頻繁使用的地方了，這邊分成建立資料表、新增資料、刪除資料、修改資料。  
 建立資料表:  
 Create table 表格名 (
-欄位名1 格式1,  
-欄位名2 格式2 default 內定值,  
-欄位名3 格式3 CONSTRAINT 限制名  
+欄位名1 資料型態,  
+欄位名2 資料型態,  
+欄位名3 資料型態 
 )  
 ```
+Create table test1 (
+t1 int,  
+t2 char(10),  
+t3 varcahr(10)  
+)  
 ```  
 查看資料表:  
 show tables;  
