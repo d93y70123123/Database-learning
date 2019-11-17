@@ -1,16 +1,13 @@
-# Mysql/mariadb資料庫  
+# sql語法教學  
 資料庫管理系統(Database Management System,DBMS)是一種管理資料庫的大型軟體，是用於建立、使用和維護資料庫。  
-具有代表性的資料管理系統有：Oracle、Microsoft SQL Server、Access、MySQL及PostgreSQL等，這邊使用的是MySQL做介紹。  
-說說為什麼會選擇MySQL:  
-* 體積小  
-* 安裝速度快  
-* 成本低  
-* 開源(免錢的意思啦)  
-* 支援多種作業系統。  
+具有代表性的資料管理系統有：Oracle、Microsoft SQL Server、Access、MySQL及PostgreSQL等，這邊使用的是(MySQL/MariaDB)做介紹。  
+```diff 
+- 除了sql語法外，如：show databases 、 descripe [tablesname]......非針對資料表欄位操作的指令，在各個資料庫系統都不一定一樣
+```
 
 ## 安裝環境  
 作業系統:centos7  
-MySQL版本:5.5.64  
+(MySQL/MariaDB)版本:10.4.8
 
 ## 安裝步驟  
 1. 安裝前先進行全系統更新  
@@ -249,6 +246,10 @@ MariaDB [dic_order]> select * from test1;
 1 row in set (0.001 sec)
 
 ```  
+更新資料：
+update 
+```mysql
+```
 
 有必要的話也可以用刪除:  
 drop table [tablename];  
@@ -261,3 +262,12 @@ Empty set (0.000 sec)
 ```  
 
 ## 談談select的用法  
+在資料庫裡，最常也最容易使用到的指令就是select!!  
+上面有提到select * from [tablename]; 這種簡單呼叫資料表的方法，接著會更深入的了解select的使用方法。  
+1. where
+2. and & or
+3. like
+4. group by & order by
+5. limit
+6. join
+7. union
