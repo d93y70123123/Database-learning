@@ -106,37 +106,158 @@ Create table 表格名 (
 欄位名3 資料型態 
 )  
 ```
-Create table test1 (
+create table test1 (
 t1 int,  
 t2 char(10),  
-t3 varcahr(10)  
-)  
+t3 varchar(10)  
+);  
 ```  
 查看資料表:  
 show tables;  
-```
+```mysql
+MariaDB [dic_order]> show tables;
++---------------------+
+| Tables_in_dic_order |
++---------------------+
+| store_name          |
+| test1               |
++---------------------+
+2 rows in set (0.000 sec)
 ```  
 新增資料:  
 insert into [tablename] values('資料1','資料2'...);
-```
+```mysql
+MariaDB [dic_order]> insert into test1 values(1,'apple','pieapple');
+Query OK, 1 row affected (0.030 sec)
 ```  
-查看資料:  
+列出資料:  
 select * from [tablename];
 ```
+MariaDB [dic_order]> select * from test1;
++------+-------+----------+
+| t1   | t2    | t3       |
++------+-------+----------+
+|    1 | apple | pieapple |
++------+-------+----------+
+1 row in set (0.001 sec)
 ```  
 刪除資料:  
-delete  
-```
+delete  from [tablename] where [欄位]=[值];
+```mysql
+MariaDB [dic_order]> select * from test1;
++------+--------+----------+
+| t1   | t2     | t3       |
++------+--------+----------+
+|    1 | apple  | pieapple |
+|    2 | banana | babanana |
++------+--------+----------+
+2 rows in set (0.002 sec)
+
+刪除第一筆資料
+
+MariaDB [dic_order]> delete from test1 where t1 = 1;
+Query OK, 1 row affected (0.080 sec)
+
+重新列出資料
+MariaDB [dic_order]> select * from test1;
++------+--------+----------+
+| t1   | t2     | t3       |
++------+--------+----------+
+|    2 | banana | babanana |
++------+--------+----------+
+1 row in set (0.001 sec)
 ```
 
 修改資料:  
 alter   
-```
+```mysql
+加入欄位
+MariaDB [dic_order]> alter table test1 add t4 int;
+Query OK, 0 rows affected (0.067 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dic_order]> select * from test1;
++------+--------+----------+------+
+| t1   | t2     | t3       | t4   |
++------+--------+----------+------+
+|    2 | banana | babanana | NULL |
++------+--------+----------+------+
+1 row in set (0.002 sec)
+
+改變欄位名稱
+MariaDB [dic_order]> alter table test1 change t4 tt44 int;
+Query OK, 0 rows affected (0.063 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dic_order]> select * from test1;
++------+--------+----------+------+
+| t1   | t2     | t3       | tt44 |
++------+--------+----------+------+
+|    2 | banana | babanana | NULL |
++------+--------+----------+------+
+1 row in set (0.001 sec)
+*注意更改欄位名稱，同時也要更改資料型態
+
+修改欄位的資料型態
+MariaDB [dic_order]> describe test1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| t1    | int(11)     | YES  |     | NULL    |       |
+| t2    | char(10)    | YES  |     | NULL    |       |
+| t3    | varchar(10) | YES  |     | NULL    |       |
+| tt44  | int(11)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.002 sec)
+這個時候tt44還是int。
+
+MariaDB [dic_order]> alter table test1 modify tt44 char(50);
+Query OK, 1 row affected (0.315 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+修改資料型態後
+MariaDB [dic_order]> describe test1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| t1    | int(11)     | YES  |     | NULL    |       |
+| t2    | char(10)    | YES  |     | NULL    |       |
+| t3    | varchar(10) | YES  |     | NULL    |       |
+| tt44  | char(50)    | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.001 sec)
+
+刪除資料表的欄位
+MariaDB [dic_order]> select * from test1;
++------+--------+----------+------+
+| t1   | t2     | t3       | tt44 |
++------+--------+----------+------+
+|    2 | banana | babanana | NULL |
++------+--------+----------+------+
+1 row in set (0.002 sec)
+
+MariaDB [dic_order]> alter table test1 drop tt44;
+Query OK, 0 rows affected (0.075 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dic_order]> select * from test1;
++------+--------+----------+
+| t1   | t2     | t3       |
++------+--------+----------+
+|    2 | banana | babanana |
++------+--------+----------+
+1 row in set (0.001 sec)
+
 ```  
 
 有必要的話也可以用刪除:  
 drop table [tablename];  
-```
+```mysql
+MariaDB [dic_order]> drop table test1;
+Query OK, 0 rows affected (0.059 sec)
+
+MariaDB [dic_order]> show tables;
+Empty set (0.000 sec)
 ```  
 
 ## 談談select的用法  
