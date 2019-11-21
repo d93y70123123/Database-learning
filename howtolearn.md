@@ -582,7 +582,7 @@ MariaDB [dic_order]> select * from shop;
 8 rows in set (0.001 sec)
 ```
 
-限制行數後
+#### 限制行數後
 ```mysql
 MariaDB [dic_order]> select * from shop limit 2;
 +-------+-------+---------------------+
@@ -605,9 +605,41 @@ MariaDB [dic_order]> select * from shop limit 3,5;
 +----------+-------+---------------------+
 5 rows in set (0.001 sec)
 ```
-7. join  
+7. as
+as是拿來取名字用的，幫欄位或是表格。
+語法：select [欄位] as [欄位別名] from [表格名稱] as [表格別名];  
+```mysql
+這是一張價錢整合後的表格
+MariaDB [dic_order]> select name,sum(price),time from shop group by price;
++----------+------------+---------------------+
+| name     | sum(price) | time                |
++----------+------------+---------------------+
+| egg      |         10 | 2019-11-21 12:58:58 |
+| apple    |         60 | 2019-11-21 12:58:46 |
+| banana   |         30 | 2019-11-21 12:58:59 |
+| dumpling |         40 | 2019-11-21 12:58:58 |
+| apple    |         50 | 2019-11-21 12:58:58 |
+| cake     |         60 | 2019-11-21 12:58:58 |
++----------+------------+---------------------+
+6 rows in set (0.001 sec)
 
-8. union  
+這邊可以看到[表格名稱]變成b了，price欄位名字變成a。
+MariaDB [dic_order]> select name,sum(price) as a,time from shop as b group by b.price;
++----------+------+---------------------+
+| name     | a    | time                |
++----------+------+---------------------+
+| egg      |   10 | 2019-11-21 12:58:58 |
+| apple    |   60 | 2019-11-21 12:58:46 |
+| banana   |   30 | 2019-11-21 12:58:59 |
+| dumpling |   40 | 2019-11-21 12:58:58 |
+| apple    |   50 | 2019-11-21 12:58:58 |
+| cake     |   60 | 2019-11-21 12:58:58 |
++----------+------+---------------------+
+6 rows in set (0.002 sec)
+```
+8. join  
+
+9. union  
 
 ## 關於建立資料表的約束和檢查  
 語法：constraint [約束名稱] check (限制條件);  
@@ -650,4 +682,96 @@ Query OK, 1 row affected (0.115 sec)
 
 
 ## view
+語法：create view [viewname] [欲顯示之欄位] as select * from [資料表名稱] {where [條件]};  
+view也是一張表格，可是這張表格來自於已經有的資料。  
+有時候很常選出特定條件的資料，可是每次都要打非常的麻煩，view就可以好好的解決這個麻煩的事。  
+假設我有一張表，而我常常需要統計各個品項總共賣出多少錢，這時候會需要這樣做：
+```mysql
+先看一下原本的資料
+MariaDB [dic_order]> select * from shop;
++----------+-------+---------------------+
+| name     | price | time                |
++----------+-------+---------------------+
+| apple    |    20 | 2019-11-21 12:58:46 |
+| apple    |    20 | 2019-11-21 12:58:58 |
+| banana   |    20 | 2019-11-21 12:58:58 |
+| apple    |    50 | 2019-11-21 12:58:58 |
+| egg      |    10 | 2019-11-21 12:58:58 |
+| cake     |    60 | 2019-11-21 12:58:58 |
+| dumpling |    40 | 2019-11-21 12:58:58 |
+| banana   |    30 | 2019-11-21 12:58:59 |
++----------+-------+---------------------+
+8 rows in set (0.001 sec)
+
+整理過後的資料
+MariaDB [dic_order]> select name,sum(price),time from shop group by price;
++----------+------------+---------------------+
+| name     | sum(price) | time                |
++----------+------------+---------------------+
+| egg      |         10 | 2019-11-21 12:58:58 |
+| apple    |         60 | 2019-11-21 12:58:46 |
+| banana   |         30 | 2019-11-21 12:58:59 |
+| dumpling |         40 | 2019-11-21 12:58:58 |
+| apple    |         50 | 2019-11-21 12:58:58 |
+| cake     |         60 | 2019-11-21 12:58:58 |
++----------+------------+---------------------+
+6 rows in set (0.002 sec)
+```
+
+然而每次都要打 select * .........，真的是很麻煩，所以就可以用view。  
+```mysql
+建立叫做v1的view表格
+MariaDB [dic_order]> create view v1 as select name,sum(price),time from shop group by price;
+Query OK, 0 rows affected (0.032 sec)
+
+MariaDB [dic_order]> select * from v1;
++----------+------------+---------------------+
+| name     | sum(price) | time                |
++----------+------------+---------------------+
+| egg      |         10 | 2019-11-21 12:58:58 |
+| apple    |         60 | 2019-11-21 12:58:46 |
+| banana   |         30 | 2019-11-21 12:58:59 |
+| dumpling |         40 | 2019-11-21 12:58:58 |
+| apple    |         50 | 2019-11-21 12:58:58 |
+| cake     |         60 | 2019-11-21 12:58:58 |
++----------+------------+---------------------+
+6 rows in set (0.002 sec)
+```
+#### 修改view
+語法：create or replace view [viewname] as select * from [資料表名稱] {where [條件]};
+如果要修改view表格的話，可以這樣做：
+
+##### 修改成由大排到小
+```mysql
+MariaDB [dic_order]> create or replace view v1 as select name,sum(price),time from shop group by price desc;
+Query OK, 0 rows affected (0.032 sec)
+
+MariaDB [dic_order]> select * from v1;
++----------+------------+---------------------+
+| name     | sum(price) | time                |
++----------+------------+---------------------+
+| cake     |         60 | 2019-11-21 12:58:58 |
+| apple    |         50 | 2019-11-21 12:58:58 |
+| dumpling |         40 | 2019-11-21 12:58:58 |
+| banana   |         30 | 2019-11-21 12:58:59 |
+| apple    |         60 | 2019-11-21 12:58:46 |
+| egg      |         10 | 2019-11-21 12:58:58 |
++----------+------------+---------------------+
+6 rows in set (0.002 sec)
+```
+
+#### 刪除view
+刪除view，跟刪除表格一樣簡單，只是多view而已。
+語法：drop view [viewname];
+
+##### 把剛剛的v1刪除
+```mysql
+MariaDB [dic_order]> drop view v1;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [dic_order]> select * from v1;
+ERROR 1146 (42S02): Table 'dic_order.v1' doesn't exist
+```
+
+
 
