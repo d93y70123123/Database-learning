@@ -511,7 +511,7 @@ MariaDB [dic_order]> select * from shop where name='apple' order by price desc;
 ```
 
 5. group by  
-當有些資料重複，但是又必須要統計的時候就會用到group by了，也就是說會將重複的資料整合起來變成一筆資料。
+當有些資料重複，但是又必須要統計的時候就會用到group by了，也就是說會將重複的資料整合起來變成一筆資料。  
 語法：select * from [資料表名稱] {where 條件} group by [欄位名稱];
 #### 整理前
 ```
@@ -562,7 +562,7 @@ MariaDB [dic_order]> select *,sum(price) from shop group by name;
 ```
 
 6. limit  
-有時候資料量很大，只想要抓到自己想看的幾行時，limit就是好幫手了。
+有時候資料量很大，只想要抓到自己想看的幾行時，limit就是好幫手了。  
 語法：select * from [資料表名稱] {where 條件} limit [2|0,3];
 #### 沒有限制前
 ```mysql
@@ -606,8 +606,8 @@ MariaDB [dic_order]> select * from shop limit 3,5;
 5 rows in set (0.001 sec)
 ```
 7. as
-as是拿來取名字用的，幫欄位或是表格。
-語法：select [欄位] as [欄位別名] from [表格名稱] as [表格別名];  
+as是拿來取名字用的，幫欄位或是表格。  
+語法：select [欄位] as [欄位別名] from [資料表名稱] as [資料表別名];  
 ```mysql
 這是一張價錢整合後的表格
 MariaDB [dic_order]> select name,sum(price),time from shop group by price;
@@ -638,6 +638,24 @@ MariaDB [dic_order]> select name,sum(price) as a,time from shop as b group by b.
 6 rows in set (0.002 sec)
 ```
 8. join  
+join可以把兩張表內的不同資料融合在一起，先來介紹常見的join。
+語法：select [欄位] 2 [欄位別名] from [資料表1],[資料表2] where [資料表1].[欄位1] = [資料表2].[欄位2];  
+先建立兩張資料表吧，一張是商店名稱，另一張是商品資訊。  
+```mysql
+create table store_name(
+sid int primary key,
+name varchar(60)
+);
+insert into store_name values() 
+
+create table menu(
+mid int,
+sid int,
+food varchar(60),
+price int,
+constraint check_sid foreign key (sid) references store_name(sid)
+);
+```
 
 9. union  
 
