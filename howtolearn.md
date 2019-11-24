@@ -638,7 +638,7 @@ MariaDB [dic_order]> select name,sum(price) as a,time from shop as b group by b.
 6 rows in set (0.002 sec)
 ```
 8. join  
-join可以把兩張表內的不同資料融合在一起，先來介紹常見的join。
+join可以把兩張表內的不同資料融合在一起。  
 語法：select [欄位] 2 [欄位別名] from [資料表1],[資料表2] where [資料表1].[欄位1] = [資料表2].[欄位2];  
 先建立兩張資料表吧，一張是商店名稱，另一張是商品資訊。  
 ```mysql
@@ -646,7 +646,22 @@ create table store_name(
 sid int primary key,
 name varchar(60)
 );
-insert into store_name values() 
+insert into store_name values(1,'金拱門');
+insert into store_name values(2,'三上巧福');
+insert into store_name values(3,'清新福泉');
+insert into store_name values(4,'星九克');
+
+MariaDB [dic_order]> select * from store_name;
++-----+--------------+
+| sid | name         |
++-----+--------------+
+|   1 | 金拱門       |
+|   2 | 三上巧福     |
+|   3 | 清新福泉     |
+|   4 | 星九克       |
++-----+--------------+
+4 rows in set (0.001 sec)
+
 
 create table menu(
 mid int,
@@ -655,7 +670,55 @@ food varchar(60),
 price int,
 constraint check_sid foreign key (sid) references store_name(sid)
 );
+insert into menu values(1,1,'勁辣雞腿堡',60);
+insert into menu values(2,3,'多多綠',40);
+insert into menu values(3,1,'賣脆雞',50);
+insert into menu values(4,2,'原汁牛肉麵',120);
+insert into menu values(5,1,'大薯',55);
+insert into menu values(6,3,'無糖綠茶',30);
+
+MariaDB [dic_order]> select * from menu;
++------+------+-----------------+-------+
+| mid  | sid  | food            | price |
++------+------+-----------------+-------+
+|    1 |    1 | 勁辣雞腿堡      |    60 |
+|    2 |    3 | 多多綠          |    40 |
+|    3 |    1 | 賣脆雞          |    50 |
+|    4 |    2 | 原汁牛肉麵      |   120 |
+|    5 |    1 | 大薯            |    55 |
+|    6 |    3 | 無糖綠茶        |    30 |
++------+------+-----------------+-------+
 ```
+  1. inner join
+  ```mysql
+  inner join
+  MariaDB [dic_order]> select * from store_name inner join menu on store_name.sid=menu.sid;
++-----+--------------+------+------+-----------------+-------+
+| sid | name         | mid  | sid  | food            | price |
++-----+--------------+------+------+-----------------+-------+
+|   1 | 金拱門       |    1 |    1 | 勁辣雞腿堡      |    60 |
+|   3 | 清新福泉     |    2 |    3 | 多多綠          |    40 |
+|   1 | 金拱門       |    3 |    1 | 賣脆雞          |    50 |
+|   2 | 三上巧福     |    4 |    2 | 原汁牛肉麵      |   120 |
+|   1 | 金拱門       |    5 |    1 | 大薯            |    55 |
+|   3 | 清新福泉     |    6 |    3 | 無糖綠茶        |    30 |
++-----+--------------+------+------+-----------------+-------+
+6 rows in set (0.001 sec)
+
+join
+MariaDB [dic_order]> select * from store_name join menu on store_name.sid=menu.sid;
++-----+--------------+------+------+-----------------+-------+
+| sid | name         | mid  | sid  | food            | price |
++-----+--------------+------+------+-----------------+-------+
+|   1 | 金拱門       |    1 |    1 | 勁辣雞腿堡      |    60 |
+|   3 | 清新福泉     |    2 |    3 | 多多綠          |    40 |
+|   1 | 金拱門       |    3 |    1 | 賣脆雞          |    50 |
+|   2 | 三上巧福     |    4 |    2 | 原汁牛肉麵      |   120 |
+|   1 | 金拱門       |    5 |    1 | 大薯            |    55 |
+|   3 | 清新福泉     |    6 |    3 | 無糖綠茶        |    30 |
++-----+--------------+------+------+-----------------+-------+
+6 rows in set (0.001 sec)
+  ```
 
 9. union  
 
