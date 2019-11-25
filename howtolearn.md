@@ -5,11 +5,20 @@
 - 除了sql語法外，如：show databases 、 descripe [tablesname]......非針對資料表欄位操作的指令，在各個資料庫系統都不一定一樣
 ```
 
-## 安裝環境  
+# 大綱
+1. 安裝環境  
+2. 安裝步驟  
+3. 建立資料庫  
+4. 建立資料表  
+5. 談談select的用法  
+6. 關於建立資料表的約束和檢查  
+7. view
+
+# 安裝環境  
 作業系統：centos7  
 MariaDB版本：10.4.8
 
-## 安裝步驟  
+# 安裝步驟  
 1. 安裝前先進行全系統更新  
 ```
 # yum -y update
@@ -28,7 +37,7 @@ MariaDB版本：10.4.8
 Enter password:
 ```  
 
-## 建立資料庫  
+# 建立資料庫  
 #### 先介紹如何建立資料庫:  
 CREATE database [DATABASE NAME];
 ```bash
@@ -94,7 +103,7 @@ MariaDB [(none)]> delete from mysql.user where User='kai@localhost';
 Query OK, 1 row affected (0.00 sec)
 ``` 
 
-## 建立資料表  
+# 建立資料表  
 資料庫完成後就是資料表，這邊分成建立資料表、新增資料、更新資料、修改資料、刪除資料。  
 建立資料表:  
 Create table 表格名 (
@@ -301,7 +310,7 @@ Empty set (0.000 sec)
 
 到這邊已經可以簡單的操作資料庫了，但是要能夠更好的掌握就必須要學習更多的技術，所以往下看吧~  
 
-## 談談select的用法  
+# 談談select的用法  
 在資料庫裡，最常也最容易使用到的指令就是select!!  
 上面有提到select * from [tablename]; 這種簡單呼叫資料表的方法，接著會更深入的了解select的使用方法。  
 首先，來解析一下語法 select (drink) from [store] ，這句話的意思是從[商店]中選(飲料)，所以當有需要從資料表中選取資料的時候就也必須要這樣做。
@@ -822,7 +831,7 @@ MariaDB [dic_order]> select * from store_name left join menu on store_name.sid =
 8 rows in set (0.002 sec)
 ```
 
-union(聯集)。
+union(聯集)
 ```mysql  
 union 
 MariaDB [dic_order]> select sid from menu union select sid from store_name;
@@ -871,6 +880,7 @@ MariaDB [dic_order]> select sid from menu intersect select sid from store_name;
 ```
 
 except(差集)
+![exceptright]()  
 ```mysql
 MariaDB [dic_order]> select sid from menu except select sid from store_name;
 +------+
@@ -881,8 +891,19 @@ MariaDB [dic_order]> select sid from menu except select sid from store_name;
 1 row in set (0.002 sec)
 ```
 
+![exceptleft]()  
+```mysql
+MariaDB [dic_order]> select sid from store_name except select sid from menu;
++------+
+| sid  |
++------+
+|    4 |
++------+
+1 row in set (0.002 sec)
+```
 
-## 關於建立資料表的約束和檢查  
+
+# 關於建立資料表的約束和檢查  
 語法：constraint [約束名稱] check (限制條件);  
 也可以不用constraint就直接使用check，下面會介紹。  
 這邊個人建議使用約束名稱，因為這樣發生錯誤的話會有提示，比較容易找錯誤。  
@@ -922,7 +943,7 @@ Query OK, 1 row affected (0.115 sec)
 ```
 
 
-## view
+# view 
 語法：create view [viewname] [欲顯示之欄位] as select * from [資料表名稱] {where [條件]};  
 view也是一張表格，可是這張表格來自於已經有的資料。  
 有時候很常選出特定條件的資料，可是每次都要打非常的麻煩，view就可以好好的解決這個麻煩的事。  
