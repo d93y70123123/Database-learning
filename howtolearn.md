@@ -785,7 +785,7 @@ MariaDB [dic_order]> select * from store_name right join menu on store_name.sid 
 * full join  
 Mariadb不支援full join，就用union表示。  
 ![fulljoin]()  
-```
+```mysql
 MariaDB [dic_order]> select * from store_name left join menu on store_name.sid = menu.sid union select * from store_name right join menu on store_name.sid = menu.sid;
 +------+--------------+------+------+-----------------+-------+
 | sid  | name         | mid  | sid  | food            | price |
@@ -802,8 +802,84 @@ MariaDB [dic_order]> select * from store_name left join menu on store_name.sid =
 8 rows in set (0.002 sec)
 ```
 
-9. union  
+9. 資料集合  
+資料集合分成三種，union、intersect、except。  
+先來看資料，再來看三者的差別。  
+```mysql
+MariaDB [dic_order]> select * from store_name left join menu on store_name.sid = menu.sid union select * from store_name right join menu on store_name.sid = menu.sid;
++------+--------------+------+------+-----------------+-------+
+| sid  | name         | mid  | sid  | food            | price |
++------+--------------+------+------+-----------------+-------+
+|    1 | 金拱門       |    1 |    1 | 勁辣雞腿堡      |    60 |
+|    3 | 清新福泉     |    2 |    3 | 多多綠          |    40 |
+|    1 | 金拱門       |    3 |    1 | 賣脆雞          |    50 |
+|    2 | 三上巧福     |    4 |    2 | 原汁牛肉麵      |   120 |
+|    1 | 金拱門       |    5 |    1 | 大薯            |    55 |
+|    3 | 清新福泉     |    6 |    3 | 無糖綠茶        |    30 |
+|    4 | 星九克       | NULL | NULL | NULL            |  NULL |
+| NULL | NULL         |    7 |    5 | 測試用          |    30 |
++------+--------------+------+------+-----------------+-------+
+8 rows in set (0.002 sec)
+```
 
+union(聯集)。
+```mysql  
+union 
+MariaDB [dic_order]> select sid from menu union select sid from store_name;
++------+
+| sid  |
++------+
+|    1 |
+|    3 |
+|    2 |
+|    5 |
+|    4 |
++------+
+5 rows in set (0.001 sec)
+
+union all
+MariaDB [dic_order]> select sid from menu union all select sid from store_name;
++------+
+| sid  |
++------+
+|    1 |
+|    3 |
+|    1 |
+|    2 |
+|    1 |
+|    3 |
+|    5 |
+|    1 |
+|    2 |
+|    3 |
+|    4 |
++------+
+11 rows in set (0.001 sec)
+```  
+
+intersect(交集)
+```mysql  
+MariaDB [dic_order]> select sid from menu intersect select sid from store_name;
++------+
+| sid  |
++------+
+|    1 |
+|    3 |
+|    2 |
++------+
+3 rows in set (0.001 sec)
+```
+
+except(差集)
+```mysql
+MariaDB [dic_order]> select sid from menu except select sid from store_name;
++------+
+| sid  |
++------+
+|    5 |
++------+
+1 row in set (0.002 sec)
+```
 
 
 ## 關於建立資料表的約束和檢查  
