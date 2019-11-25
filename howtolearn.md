@@ -638,12 +638,12 @@ MariaDB [dic_order]> select name,sum(price) as a,time from shop as b group by b.
 6 rows in set (0.002 sec)
 ```
 8. join  
-join可以把兩張表內的不同資料融合在一起。  
+join可以把兩張表內的不同資料結合在一起。  
 語法：select [欄位] 2 [欄位別名] from [資料表1],[資料表2] where [資料表1].[欄位1] = [資料表2].[欄位2];  
 先建立兩張資料表吧，一張是商店名稱，另一張是商品資訊。  
 ```mysql
 create table store_name(
-sid int primary key,
+sid int,
 name varchar(60)
 );
 insert into store_name values(1,'金拱門');
@@ -652,14 +652,14 @@ insert into store_name values(3,'清新福泉');
 insert into store_name values(4,'星九克');
 
 MariaDB [dic_order]> select * from store_name;
-+-----+--------------+
-| sid | name         |
-+-----+--------------+
-|   1 | 金拱門       |
-|   2 | 三上巧福     |
-|   3 | 清新福泉     |
-|   4 | 星九克       |
-+-----+--------------+
++------+--------------+
+| sid  | name         |
++------+--------------+
+|    1 | 金拱門       |
+|    2 | 三上巧福     |
+|    3 | 清新福泉     |
+|    4 | 星九克       |
++------+--------------+
 4 rows in set (0.001 sec)
 
 
@@ -667,8 +667,7 @@ create table menu(
 mid int,
 sid int,
 food varchar(60),
-price int,
-constraint check_sid foreign key (sid) references store_name(sid)
+price int
 );
 insert into menu values(1,1,'勁辣雞腿堡',60);
 insert into menu values(2,3,'多多綠',40);
@@ -676,6 +675,7 @@ insert into menu values(3,1,'賣脆雞',50);
 insert into menu values(4,2,'原汁牛肉麵',120);
 insert into menu values(5,1,'大薯',55);
 insert into menu values(6,3,'無糖綠茶',30);
+insert into menu values(7,5,'測試用',30);
 
 MariaDB [dic_order]> select * from menu;
 +------+------+-----------------+-------+
@@ -687,40 +687,124 @@ MariaDB [dic_order]> select * from menu;
 |    4 |    2 | 原汁牛肉麵      |   120 |
 |    5 |    1 | 大薯            |    55 |
 |    6 |    3 | 無糖綠茶        |    30 |
+|    7 |    5 | 測試用          |    30 |
 +------+------+-----------------+-------+
-```
-  1. inner join
-  ```mysql
-  inner join
-  MariaDB [dic_order]> select * from store_name inner join menu on store_name.sid=menu.sid;
-+-----+--------------+------+------+-----------------+-------+
-| sid | name         | mid  | sid  | food            | price |
-+-----+--------------+------+------+-----------------+-------+
-|   1 | 金拱門       |    1 |    1 | 勁辣雞腿堡      |    60 |
-|   3 | 清新福泉     |    2 |    3 | 多多綠          |    40 |
-|   1 | 金拱門       |    3 |    1 | 賣脆雞          |    50 |
-|   2 | 三上巧福     |    4 |    2 | 原汁牛肉麵      |   120 |
-|   1 | 金拱門       |    5 |    1 | 大薯            |    55 |
-|   3 | 清新福泉     |    6 |    3 | 無糖綠茶        |    30 |
-+-----+--------------+------+------+-----------------+-------+
-6 rows in set (0.001 sec)
+7 rows in set (0.001 sec)
+```  
 
-join
-MariaDB [dic_order]> select * from store_name join menu on store_name.sid=menu.sid;
-+-----+--------------+------+------+-----------------+-------+
-| sid | name         | mid  | sid  | food            | price |
-+-----+--------------+------+------+-----------------+-------+
-|   1 | 金拱門       |    1 |    1 | 勁辣雞腿堡      |    60 |
-|   3 | 清新福泉     |    2 |    3 | 多多綠          |    40 |
-|   1 | 金拱門       |    3 |    1 | 賣脆雞          |    50 |
-|   2 | 三上巧福     |    4 |    2 | 原汁牛肉麵      |   120 |
-|   1 | 金拱門       |    5 |    1 | 大薯            |    55 |
-|   3 | 清新福泉     |    6 |    3 | 無糖綠茶        |    30 |
-+-----+--------------+------+------+-----------------+-------+
+* inner join  
+![innerjoin]()
+
+```mysql
+inner join
+MariaDB [dic_order]> select * from store_name inner join menu on store_name.sid = menu.sid;
++------+--------------+------+------+-----------------+-------+
+| sid  | name         | mid  | sid  | food            | price |
++------+--------------+------+------+-----------------+-------+
+|    1 | 金拱門       |    1 |    1 | 勁辣雞腿堡      |    60 |
+|    3 | 清新福泉     |    2 |    3 | 多多綠          |    40 |
+|    1 | 金拱門       |    3 |    1 | 賣脆雞          |    50 |
+|    2 | 三上巧福     |    4 |    2 | 原汁牛肉麵      |   120 |
+|    1 | 金拱門       |    5 |    1 | 大薯            |    55 |
+|    3 | 清新福泉     |    6 |    3 | 無糖綠茶        |    30 |
++------+--------------+------+------+-----------------+-------+
 6 rows in set (0.001 sec)
-  ```
+```
+
+* natural join  
+其實跟inner join的結果是一樣的，但是需要兩張表的欄位名稱都要一樣  
+```mysql
+MariaDB [dic_order]> select * from store_name natural join menu;
++------+--------------+------+-----------------+-------+
+| sid  | name         | mid  | food            | price |
++------+--------------+------+-----------------+-------+
+|    1 | 金拱門       |    1 | 勁辣雞腿堡      |    60 |
+|    3 | 清新福泉     |    2 | 多多綠          |    40 |
+|    1 | 金拱門       |    3 | 賣脆雞          |    50 |
+|    2 | 三上巧福     |    4 | 原汁牛肉麵      |   120 |
+|    1 | 金拱門       |    5 | 大薯            |    55 |
+|    3 | 清新福泉     |    6 | 無糖綠茶        |    30 |
++------+--------------+------+-----------------+-------+
+6 rows in set (0.002 sec)
+```
+
+* left join  
+![leftjoin]()  
+```mysql
+MariaDB [dic_order]> select * from store_name left join menu on store_name.sid = menu.sid;
++------+--------------+------+------+-----------------+-------+
+| sid  | name         | mid  | sid  | food            | price |
++------+--------------+------+------+-----------------+-------+
+|    1 | 金拱門       |    1 |    1 | 勁辣雞腿堡      |    60 |
+|    3 | 清新福泉     |    2 |    3 | 多多綠          |    40 |
+|    1 | 金拱門       |    3 |    1 | 賣脆雞          |    50 |
+|    2 | 三上巧福     |    4 |    2 | 原汁牛肉麵      |   120 |
+|    1 | 金拱門       |    5 |    1 | 大薯            |    55 |
+|    3 | 清新福泉     |    6 |    3 | 無糖綠茶        |    30 |
+|    4 | 星九克       | NULL | NULL | NULL            |  NULL |
++------+--------------+------+------+-----------------+-------+
+7 rows in set (0.002 sec)
+
+left outer join
+MariaDB [dic_order]> select * from store_name left join menu on store_name.sid = menu.sid where menu.sid is null;
++------+-----------+------+------+------+-------+
+| sid  | name      | mid  | sid  | food | price |
++------+-----------+------+------+------+-------+
+|    4 | 星九克    | NULL | NULL | NULL |  NULL |
++------+-----------+------+------+------+-------+
+1 row in set (0.002 sec)
+```
+
+
+* right join  
+![rightjoin]()  
+```mysql
+MariaDB [dic_order]> select * from store_name right join menu on store_name.sid = menu.sid;
++------+--------------+------+------+-----------------+-------+
+| sid  | name         | mid  | sid  | food            | price |
++------+--------------+------+------+-----------------+-------+
+|    1 | 金拱門       |    1 |    1 | 勁辣雞腿堡      |    60 |
+|    1 | 金拱門       |    3 |    1 | 賣脆雞          |    50 |
+|    1 | 金拱門       |    5 |    1 | 大薯            |    55 |
+|    2 | 三上巧福     |    4 |    2 | 原汁牛肉麵      |   120 |
+|    3 | 清新福泉     |    2 |    3 | 多多綠          |    40 |
+|    3 | 清新福泉     |    6 |    3 | 無糖綠茶        |    30 |
+| NULL | NULL         |    7 |    5 | 測試用          |    30 |
++------+--------------+------+------+-----------------+-------+
+
+right outer join 
+MariaDB [dic_order]> select * from store_name right join menu on store_name.sid = menu.sid where store_name.sid is null;
++------+------+------+------+-----------+-------+
+| sid  | name | mid  | sid  | food      | price |
++------+------+------+------+-----------+-------+
+| NULL | NULL |    7 |    5 | 測試用    |    30 |
++------+------+------+------+-----------+-------+
+1 row in set (0.001 sec)
+```
+
+* full join  
+Mariadb不支援full join，就用union表示。  
+![fulljoin]()  
+```
+MariaDB [dic_order]> select * from store_name left join menu on store_name.sid = menu.sid union select * from store_name right join menu on store_name.sid = menu.sid;
++------+--------------+------+------+-----------------+-------+
+| sid  | name         | mid  | sid  | food            | price |
++------+--------------+------+------+-----------------+-------+
+|    1 | 金拱門       |    1 |    1 | 勁辣雞腿堡      |    60 |
+|    3 | 清新福泉     |    2 |    3 | 多多綠          |    40 |
+|    1 | 金拱門       |    3 |    1 | 賣脆雞          |    50 |
+|    2 | 三上巧福     |    4 |    2 | 原汁牛肉麵      |   120 |
+|    1 | 金拱門       |    5 |    1 | 大薯            |    55 |
+|    3 | 清新福泉     |    6 |    3 | 無糖綠茶        |    30 |
+|    4 | 星九克       | NULL | NULL | NULL            |  NULL |
+| NULL | NULL         |    7 |    5 | 測試用          |    30 |
++------+--------------+------+------+-----------------+-------+
+8 rows in set (0.002 sec)
+```
 
 9. union  
+
+
 
 ## 關於建立資料表的約束和檢查  
 語法：constraint [約束名稱] check (限制條件);  
@@ -842,8 +926,8 @@ MariaDB [dic_order]> select * from v1;
 ```
 
 #### 刪除view
-刪除view，跟刪除表格一樣簡單，只是多view而已。
-語法：drop view [viewname];
+刪除view，跟刪除表格一樣簡單，只是多view而已。  
+語法：drop view [viewname];  
 
 ##### 把剛剛的v1刪除
 ```mysql
@@ -854,5 +938,8 @@ MariaDB [dic_order]> select * from v1;
 ERROR 1146 (42S02): Table 'dic_order.v1' doesn't exist
 ```
 
+
+### 參考文獻
+[mysql-outer]：https://dev.mysql.com/doc/refman/8.0/en/outer-join-simplification.html
 
 
