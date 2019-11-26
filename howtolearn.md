@@ -39,14 +39,14 @@ Enter password:
 
 # 建立資料庫  
 #### 先介紹如何建立資料庫:  
-CREATE database [DATABASE NAME];
+語法：CREATE database [DATABASE NAME];
 ```bash
 MariaDB [(none)]> create database dic_order;
 Query OK, 1 row affected (0.00 sec)
 ```
 
 #### 使用剛剛建立的資料庫:
-use [dbname];
+語法：use [dbname];
 ```
 MariaDB [(none)]> use dic_order;
 Database changed
@@ -54,7 +54,7 @@ MariaDB [dic_order]>
 ```
 
 #### 查看建立的資料表:
-show databases;
+語法：show databases;
 ```
 MariaDB [(none)]> show databases;
 +--------------------+
@@ -70,20 +70,21 @@ MariaDB [(none)]> show databases;
 6 rows in set (0.00 sec)
 ```
 #### 刪除資料庫:  
+語法：drop database [dbname];
 ```bash
 MariaDB [(none)]> drop database order1;
 Query OK, 0 rows affected (0.00 sec)
 ```  
 
-接著是使用者的部分，分別介紹三種功能。  
+## 接著是使用者的部分，分別介紹三種功能。  
 #### 新增:  
-CREATE USER 'Username'@'localhost' IDENTIFIED BY 'NewPasswd';
+語法：CREATE USER 'Username'@'localhost' IDENTIFIED BY 'NewPasswd';
 ```bash
 MariaDB [(none)]> CREATE USER 'kai'@'localhost' IDENTIFIED BY 'ispassword';
 Query OK, 0 rows affected (0.00 sec)
 ```
 #### 查看:  
-select Host,User from mysql.user;
+語法：select Host,User from mysql.user;
 ```
 MariaDB [(none)]> select Host,User from mysql.user;
 +-----------+------+
@@ -97,7 +98,7 @@ MariaDB [(none)]> select Host,User from mysql.user;
 4 rows in set (0.00 sec)
 ```  
 #### 刪除:  
-delete from mysql.user where User='[USERNAME]';
+語法：delete from mysql.user where User='[USERNAME]';
 ```bash
 MariaDB [(none)]> delete from mysql.user where User='kai@localhost';
 Query OK, 1 row affected (0.00 sec)
@@ -105,7 +106,7 @@ Query OK, 1 row affected (0.00 sec)
 
 # 建立資料表  
 資料庫完成後就是資料表，這邊分成建立資料表、新增資料、更新資料、修改資料、刪除資料。  
-建立資料表:  
+建立資料表語法：  
 Create table 表格名 (
 欄位名1 資料型態,  
 欄位名2 資料型態,  
@@ -119,7 +120,7 @@ t3 varchar(10)
 );  
 ```  
 #### 查看所有資料表:  
-show tables;  
+語法：show tables;  
 ```mysql
 MariaDB [dic_order]> show tables;
 +---------------------+
@@ -131,13 +132,13 @@ MariaDB [dic_order]> show tables;
 2 rows in set (0.000 sec)
 ```  
 #### 新增資料:  
-insert into [tablename] values('資料1','資料2'...);
+語法：insert into [tablename] values('資料1','資料2'...);
 ```mysql
 MariaDB [dic_order]> insert into test1 values(1,'apple','pieapple');
 Query OK, 1 row affected (0.030 sec)
 ```  
 #### 列出資料:  
-select * from [tablename];
+語法：select * from [tablename];
 ```
 MariaDB [dic_order]> select * from test1;
 +------+-------+----------+
@@ -148,7 +149,7 @@ MariaDB [dic_order]> select * from test1;
 1 row in set (0.001 sec)
 ```  
 #### 刪除資料:  
-delete  from [tablename] where [欄位]='[值]';
+語法：delete  from [tablename] where [欄位]='[值]';
 ```mysql
 MariaDB [dic_order]> select * from test1;
 +------+--------+----------+
@@ -175,7 +176,7 @@ MariaDB [dic_order]> select * from test1;
 ```
 
 #### 修改資料:  
-alter table [資料表名稱] [add|change|modify|drop] [欲更改欄位] [資料型態];  
+語法：alter table [資料表名稱] [add|change|modify|drop] [欲更改欄位] [資料型態];  
 ```mysql
 加入欄位
 MariaDB [dic_order]> alter table test1 add t4 int;
@@ -256,7 +257,7 @@ MariaDB [dic_order]> select * from test1;
 
 ```  
 #### 更新資料表裡的資料：
-update [表格名稱] set [欄位名稱1]='[值1]' where [欄位名稱2]='[值2]';  
+語法：update [表格名稱] set [欄位名稱1]='[值1]' where [欄位名稱2]='[值2]';  
 update 使用方法會比較抽象一點，因為他必須要用另外一個欄位來當作條件，若是沒有另外一個欄位當作條件的話，就會整欄的值都會被改掉。
 ```mysql
 MariaDB [dic_order]> select * from test1;
@@ -299,7 +300,7 @@ MariaDB [dic_order]> select * from test1;
 所以增加條件是非常重要的，如果今天是在處理重要的資料時，沒有設定條件的話後果會是非常慘烈的。
 
 #### 刪除資料表:  
-drop table [tablename];  
+語法：drop table [tablename];  
 ```mysql
 MariaDB [dic_order]> drop table test1;
 Query OK, 0 rows affected (0.059 sec)
@@ -312,10 +313,10 @@ Empty set (0.000 sec)
 
 # 談談select的用法  
 在資料庫裡，最常也最容易使用到的指令就是select!!  
-上面有提到select * from [tablename]; 這種簡單呼叫資料表的方法，接著會更深入的了解select的使用方法。  
-首先，來解析一下語法 select (drink) from [store] ，這句話的意思是從[商店]中選(飲料)，所以當有需要從資料表中選取資料的時候就也必須要這樣做。
-從[資料表]中選取[資料]是最基本且重要的語法，看完語法後來瞭解一下資料的結構吧：
-如果有在用excel的人就知道，所有資料都儲存於欄位中，欄位分別又在[列]跟[欄]上，像是下面這樣
+上面有提到 select * from [tablename]; 這種簡單呼叫資料表的方法，接著會更深入的了解select的使用方法。  
+首先，來解析一下語法 select (drink) from [store] ，這句話的意思是從[商店]中選(飲料)，所以當有需要從資料表中選取資料的時候就也必須要這樣做。  
+從[資料表]中選取[資料]是最基本且重要的語法，看完語法後來瞭解一下資料的結構吧。  
+如果有在用excel的人就知道，所有資料都儲存於欄位中，欄位分別又在[列]跟[欄]上，像是下面這樣：  
 ```
 ----|列1----|列2----|
 欄1-|資料1-1|資料2-1|
@@ -324,7 +325,7 @@ Empty set (0.000 sec)
 
 瞭解完[欄]跟[列]的分配後，就開始好好認識select這把好用的工具吧。  
 0. select  
-select 本身可以選出你要的資料  
+語法：select 本身可以選出你要的資料  
 語法：select [欄位名稱] from [資料表名稱];  
 ```mysql
 通常對剛增加資料的表會做一個動作，就是查看有沒有輸入正確，所以就會像下面這樣下指令。
@@ -365,7 +366,7 @@ MariaDB [dic_order]> select * from test1;
 +------+-----------+--------+
 2 rows in set (0.004 sec)
 
-加上where後
+加上where後，並限制只限制t1為3的情況。
 
 MariaDB [dic_order]> select * from test1 where t1=3;
 +------+-----------+------+
@@ -382,10 +383,112 @@ t1 就是[欄位名稱]
 
 運算符號就是可以拿來做加減乘除等等....。
 ```
-2. and & or  
+
+2. 函數(function)
+像excel一樣，常常會使用函數做運算，簡化使用過程。
+語法：select [sum|avg|count....](欄位名稱) where [資料表名稱];
+下面會介紹幾本的幾種函數，每個資料庫系統擁有的函數不一定會是一樣的。
+建立一張新的資料表，純粹做運算用。  
+```mysql
+create table cal(
+num int
+);
+
+insert into cal values(10);
+insert into cal values(77);
+insert into cal values(23);
+insert into cal values(3);
+insert into cal values(81);
+insert into cal values(97);
+insert into cal values(64);
+insert into cal values(38);
+insert into cal values(69);
+insert into cal values(52);
+```
+建立完的結果  
+```mysql
+MariaDB [dic_order]> select num from cal;
++------+
+| num  |
++------+
+|   10 |
+|   77 |
+|   23 |
+|    3 |
+|   81 |
+|   97 |
+|   64 |
+|   38 |
+|   69 |
+|   52 |
++------+
+10 rows in set (0.001 sec)
+```
+
+sum  
+計算所有欄位的總和。  
+```mysql
+MariaDB [dic_order]> select sum(num) from cal;
++----------+
+| sum(num) |
++----------+
+|      514 |
++----------+
+1 row in set (0.001 sec)
+```
+
+avg(average的縮寫)  
+計算所有欄位的平均。  
+```mysql
+MariaDB [dic_order]> select avg(num) from cal;
++----------+
+| avg(num) |
++----------+
+|  51.4000 |
++----------+
+1 row in set (0.001 sec)
+```
+
+count  
+計算資料筆數有幾筆。  
+```mysql
+MariaDB [dic_order]> select count(num) from cal;
++------------+
+| count(num) |
++------------+
+|         10 |
++------------+
+1 row in set (0.001 sec)
+```
+
+max  
+選出所有欄位中數字最大的。
+```mysql
+MariaDB [dic_order]> select max(num) from cal;
++----------+
+| max(num) |
++----------+
+|       97 |
++----------+
+1 row in set (0.001 sec)
+```
+
+min  
+選出所有欄位中數字最小的。  
+```mysql
+MariaDB [dic_order]> select min(num) from cal;
++----------+
+| min(num) |
++----------+
+|        3 |
++----------+
+1 row in set (0.001 sec)
+```
+
+3. and & or  
 [and]這一個判斷式就是需要兩邊條件都成立才會成功。  
 [or]則是兩邊條件有一邊成立就會成功。  
-select * from [資料表名稱] where [欄位名稱1] = '[值1]' [and|or] [欄位名稱2] = '[值2]';  
+語法：select * from [資料表名稱] where [欄位名稱1] = '[值1]' [and|or] [欄位名稱2] = '[值2]';  
 ```
 MariaDB [dic_order]> select * from test1 where t1=2 and t1=3;
 Empty set (0.002 sec)
@@ -416,7 +519,7 @@ MariaDB [dic_order]> select * from test1 where t1=2 or t1=3;
 MariaDB [dic_order]>
 ```  
 
-3. like  
+4. like  
 like 在這裡翻譯成[像]，所以它要做的事情就是找出類似的東西。  
 like 需要跟許多萬用字元做搭配，所以忘記的話可以到網路上尋找 'sql 萬用字元'，找到自己需要的。
 語法：select * from [資料表名稱] where [欄位名稱] like '[要找的東西]';  
@@ -453,7 +556,7 @@ MariaDB [dic_order]> select * from test1 where t2 like '%na%';
 +------+--------+--------+
 1 row in set (0.002 sec)
 ```
-4. order by  
+5. order by  
 既然是資料總有需要排序的時候，也就是比大小，這時候就會用到這個功能了。
 語法：select * from [資料表名稱] {where 條件} order by [欄位名稱] [ASC, DESC];
 ASC是從小排到大，DESC是從大排到小，如果沒有加這個選項預設是ASC，且如果有where子句的話，優先順序會在 order by 前。
@@ -519,7 +622,7 @@ MariaDB [dic_order]> select * from shop where name='apple' order by price desc;
 3 rows in set (0.001 sec)
 ```
 
-5. group by  
+6. group by  
 當有些資料重複，但是又必須要統計的時候就會用到group by了，也就是說會將重複的資料整合起來變成一筆資料。  
 語法：select * from [資料表名稱] {where 條件} group by [欄位名稱];
 #### 整理前
@@ -570,7 +673,7 @@ MariaDB [dic_order]> select *,sum(price) from shop group by name;
 可以看到最右邊的欄位出現了 sum(price) ，這就是我們要的價錢總和
 ```
 
-6. limit  
+7. limit  
 有時候資料量很大，只想要抓到自己想看的幾行時，limit就是好幫手了。  
 語法：select * from [資料表名稱] {where 條件} limit [2|0,3];
 #### 沒有限制前
@@ -614,7 +717,7 @@ MariaDB [dic_order]> select * from shop limit 3,5;
 +----------+-------+---------------------+
 5 rows in set (0.001 sec)
 ```
-7. as
+8. as
 as是拿來取名字用的，幫欄位或是表格。  
 語法：select [欄位] as [欄位別名] from [資料表名稱] as [資料表別名];  
 ```mysql
@@ -646,7 +749,7 @@ MariaDB [dic_order]> select name,sum(price) as a,time from shop as b group by b.
 +----------+------+---------------------+
 6 rows in set (0.002 sec)
 ```
-8. join  
+9. join  
 join可以把兩張表內的資料結合在一起，形成一張新的資料表。  
 語法：select [欄位] 2 [欄位別名] from [資料表1],[資料表2] where [資料表1].[欄位1] = [資料表2].[欄位2];  
 先建立兩張資料表吧，一張是商店名稱，另一張是商品資訊。  
@@ -702,6 +805,8 @@ MariaDB [dic_order]> select * from menu;
 ```  
 
 * inner join  
+語法：select * from [資料表1] inner join [資料表2] on [資料表1].[欄位1] = [資料表2].[欄位2];  
+join效果其實跟inner join一樣。  
 ![innerjoin](https://github.com/d93y70123123/Database-learning/blob/master/inner.jpg)
 
 ```mysql
@@ -718,10 +823,25 @@ MariaDB [dic_order]> select * from store_name inner join menu on store_name.sid 
 |    3 | 清新福泉     |    6 |    3 | 無糖綠茶        |    30 |
 +------+--------------+------+------+-----------------+-------+
 6 rows in set (0.001 sec)
+
+join
+MariaDB [dic_order]> select * from store_name join menu on store_name.sid = menu.sid;
++------+--------------+------+------+-----------------+-------+
+| sid  | name         | mid  | sid  | food            | price |
++------+--------------+------+------+-----------------+-------+
+|    1 | 金拱門       |    1 |    1 | 勁辣雞腿堡      |    60 |
+|    3 | 清新福泉     |    2 |    3 | 多多綠          |    40 |
+|    1 | 金拱門       |    3 |    1 | 賣脆雞          |    50 |
+|    2 | 三上巧福     |    4 |    2 | 原汁牛肉麵      |   120 |
+|    1 | 金拱門       |    5 |    1 | 大薯            |    55 |
+|    3 | 清新福泉     |    6 |    3 | 無糖綠茶        |    30 |
++------+--------------+------+------+-----------------+-------+
+6 rows in set (0.001 sec)
 ```
 
 * natural join  
-其實跟inner join的結果是一樣的，但是需要兩張表的欄位名稱都要一樣  
+語法：select * from [資料表1] natural join [資料表2];  
+其實跟inner join的結果是一樣的，但是兩張表的欄位名稱一定都要一樣。  
 ```mysql
 MariaDB [dic_order]> select * from store_name natural join menu;
 +------+--------------+------+-----------------+-------+
@@ -738,6 +858,7 @@ MariaDB [dic_order]> select * from store_name natural join menu;
 ```
 
 * left join  
+語法：select * from [資料表1] left join [資料表2] on [資料表1].[欄位1] = [資料表2].[欄位2];  
 ![leftjoin](https://github.com/d93y70123123/Database-learning/blob/master/leftjoin.jpg)  
 ```mysql
 MariaDB [dic_order]> select * from store_name left join menu on store_name.sid = menu.sid;
@@ -756,6 +877,7 @@ MariaDB [dic_order]> select * from store_name left join menu on store_name.sid =
 ```
 
 * left outer join  
+語法：select * from [資料表1] left join [資料表2] on [資料表1].[欄位1] = [資料表2].[欄位2] where [資料表2] is null;  
 ![leftouterjoin](https://github.com/d93y70123123/Database-learning/blob/master/leftouter.jpg)  
 ```mysql
 
@@ -771,6 +893,7 @@ MariaDB [dic_order]> select * from store_name left join menu on store_name.sid =
 
 
 * right join  
+語法：select * from [資料表1] right join [資料表2] on [資料表1].[欄位1] = [資料表2].[欄位2];  
 ![rightjoin](https://github.com/d93y70123123/Database-learning/blob/master/rightjoin.jpg)  
 ```mysql
 MariaDB [dic_order]> select * from store_name right join menu on store_name.sid = menu.sid;
@@ -787,7 +910,8 @@ MariaDB [dic_order]> select * from store_name right join menu on store_name.sid 
 +------+--------------+------+------+-----------------+-------+
 ```
 * right outer join  
-![rightouterjoin](https://github.com/d93y70123123/Database-learning/blob/master/rightouter.jpg) 
+語法：select * from [資料表1] right join [資料表2] on [資料表1].[欄位1] = [資料表2].[欄位2] where [資料表1] is null;  
+![rightouterjoin](https://github.com/d93y70123123/Database-learning/blob/master/rightouter.jpg)  
 ```mysql 
 right outer join 
 MariaDB [dic_order]> select * from store_name right join menu on store_name.sid = menu.sid where store_name.sid is null;
@@ -800,6 +924,7 @@ MariaDB [dic_order]> select * from store_name right join menu on store_name.sid 
 ```
 
 * full join  
+語法：select * from [資料表1] full join [資料表2] on [資料表1].[欄位1] = [資料表2].[欄位2];  
 Mariadb不支援full join，就用union表示。  
 ![fulljoin](https://github.com/d93y70123123/Database-learning/blob/master/fulljoin.jpg)  
 ```mysql
@@ -818,8 +943,23 @@ MariaDB [dic_order]> select * from store_name left join menu on store_name.sid =
 +------+--------------+------+------+-----------------+-------+
 8 rows in set (0.002 sec)
 ```
+* 用psql示範full join。
+```psql
+root=# select * from store_name full join menu on store_name.sid = menu.sid;
+ sid |   name   | mid | sid |    food    | price
+-----+----------+-----+-----+------------+-------
+   1 | 金拱門   |   5 |   1 | 大薯       |    55
+   1 | 金拱門   |   3 |   1 | 賣脆雞     |    50
+   1 | 金拱門   |   1 |   1 | 勁辣雞腿堡 |    60
+   2 | 三上巧福 |   4 |   2 | 原汁牛肉麵 |   120
+   3 | 清新福泉 |   6 |   3 | 無糖綠茶   |    30
+   3 | 清新福泉 |   2 |   3 | 多多綠     |    40
+   4 | 星九克   |     |     |            |
+     |          |   7 |   5 | 測試用     |    30
+(8 筆資料列)
+```
 
-9. 資料表合併  
+10. 資料表合併  
 資料表合併分成三種，union、intersect、except。  
 這三種是將已經有的兩張資料表，合併成新的一張資料表。  
 先來看資料，再來看三者的差別。  
