@@ -647,7 +647,7 @@ MariaDB [dic_order]> select name,sum(price) as a,time from shop as b group by b.
 6 rows in set (0.002 sec)
 ```
 8. join  
-join可以把兩張表內的不同資料結合在一起。  
+join可以把兩張表內的資料結合在一起，形成一張新的資料表。  
 語法：select [欄位] 2 [欄位別名] from [資料表1],[資料表2] where [資料表1].[欄位1] = [資料表2].[欄位2];  
 先建立兩張資料表吧，一張是商店名稱，另一張是商品資訊。  
 ```mysql
@@ -702,7 +702,7 @@ MariaDB [dic_order]> select * from menu;
 ```  
 
 * inner join  
-![innerjoin]()
+![innerjoin](https://github.com/d93y70123123/Database-learning/blob/master/inner.jpg)
 
 ```mysql
 inner join
@@ -738,7 +738,7 @@ MariaDB [dic_order]> select * from store_name natural join menu;
 ```
 
 * left join  
-![leftjoin]()  
+![leftjoin](https://github.com/d93y70123123/Database-learning/blob/master/leftjoin.jpg)  
 ```mysql
 MariaDB [dic_order]> select * from store_name left join menu on store_name.sid = menu.sid;
 +------+--------------+------+------+-----------------+-------+
@@ -753,6 +753,11 @@ MariaDB [dic_order]> select * from store_name left join menu on store_name.sid =
 |    4 | 星九克       | NULL | NULL | NULL            |  NULL |
 +------+--------------+------+------+-----------------+-------+
 7 rows in set (0.002 sec)
+```
+
+* left outer join  
+![leftouterjoin](https://github.com/d93y70123123/Database-learning/blob/master/leftouter.jpg)  
+```mysql
 
 left outer join
 MariaDB [dic_order]> select * from store_name left join menu on store_name.sid = menu.sid where menu.sid is null;
@@ -766,7 +771,7 @@ MariaDB [dic_order]> select * from store_name left join menu on store_name.sid =
 
 
 * right join  
-![rightjoin]()  
+![rightjoin](https://github.com/d93y70123123/Database-learning/blob/master/rightjoin.jpg)  
 ```mysql
 MariaDB [dic_order]> select * from store_name right join menu on store_name.sid = menu.sid;
 +------+--------------+------+------+-----------------+-------+
@@ -780,7 +785,10 @@ MariaDB [dic_order]> select * from store_name right join menu on store_name.sid 
 |    3 | 清新福泉     |    6 |    3 | 無糖綠茶        |    30 |
 | NULL | NULL         |    7 |    5 | 測試用          |    30 |
 +------+--------------+------+------+-----------------+-------+
-
+```
+* right outer join  
+![rightouterjoin](https://github.com/d93y70123123/Database-learning/blob/master/rightouter.jpg) 
+```mysql 
 right outer join 
 MariaDB [dic_order]> select * from store_name right join menu on store_name.sid = menu.sid where store_name.sid is null;
 +------+------+------+------+-----------+-------+
@@ -793,7 +801,7 @@ MariaDB [dic_order]> select * from store_name right join menu on store_name.sid 
 
 * full join  
 Mariadb不支援full join，就用union表示。  
-![fulljoin]()  
+![fulljoin](https://github.com/d93y70123123/Database-learning/blob/master/fulljoin.jpg)  
 ```mysql
 MariaDB [dic_order]> select * from store_name left join menu on store_name.sid = menu.sid union select * from store_name right join menu on store_name.sid = menu.sid;
 +------+--------------+------+------+-----------------+-------+
@@ -812,9 +820,41 @@ MariaDB [dic_order]> select * from store_name left join menu on store_name.sid =
 ```
 
 9. 資料表合併  
-資料表合併分成三種，union、intersect、except，且資料數量必須要相同。  
+資料表合併分成三種，union、intersect、except。  
+這三種是將已經有的兩張資料表，合併成新的一張資料表。  
 先來看資料，再來看三者的差別。  
 *hint：mysql/mariadb不支援minus。  
+
+#### 兩張資料表的圖示
+下面的資料範例都使用兩張表內的sid。
+```mysql  
+MariaDB [dic_order]> select sid from store_name;
++------+
+| sid  |
++------+
+|    1 |
+|    2 |
+|    3 |
+|    4 |
++------+
+4 rows in set (0.001 sec)
+
+MariaDB [dic_order]> select sid from menu;
++------+
+| sid  |
++------+
+|    1 |
+|    3 |
+|    1 |
+|    2 |
+|    1 |
+|    3 |
+|    5 |
++------+
+7 rows in set (0.001 sec)
+```
+
+![data](https://github.com/d93y70123123/Database-learning/blob/master/%E5%90%84%E5%80%8B.jpg)
 
 ```mysql
 MariaDB [dic_order]> select * from store_name left join menu on store_name.sid = menu.sid union select * from store_name right join menu on store_name.sid = menu.sid;
