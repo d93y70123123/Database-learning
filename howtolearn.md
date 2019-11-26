@@ -384,10 +384,10 @@ t1 就是[欄位名稱]
 運算符號就是可以拿來做加減乘除等等....。
 ```
 
-2. 函數(function)
-像excel一樣，常常會使用函數做運算，簡化使用過程。
-語法：select [sum|avg|count....](欄位名稱) where [資料表名稱];
-下面會介紹幾本的幾種函數，每個資料庫系統擁有的函數不一定會是一樣的。
+2. 函數(function)  
+像excel一樣，常常會使用函數做運算，簡化使用過程。  
+語法：select [sum|avg|count....](欄位名稱) where [資料表名稱];  
+下面會介紹幾本的幾種函數，每個資料庫系統擁有的函數不一定會是一樣的。  
 建立一張新的資料表，純粹做運算用。  
 ```mysql
 create table cal(
@@ -557,9 +557,9 @@ MariaDB [dic_order]> select * from test1 where t2 like '%na%';
 1 row in set (0.002 sec)
 ```
 5. order by  
-既然是資料總有需要排序的時候，也就是比大小，這時候就會用到這個功能了。
-語法：select * from [資料表名稱] {where 條件} order by [欄位名稱] [ASC, DESC];
-ASC是從小排到大，DESC是從大排到小，如果沒有加這個選項預設是ASC，且如果有where子句的話，優先順序會在 order by 前。
+既然是資料總有需要排序的時候，也就是比大小，這時候就會用到這個功能了。  
+語法：select * from [資料表名稱] {where 條件} order by [欄位名稱] [ASC|DESC];  
+ASC是從小排到大，DESC是從大排到小，如果沒有加這個選項預設是ASC，且如果有where子句的話，優先順序會在 order by 前。  
 #### 排序前
 ```mysql
 MariaDB [dic_order]> select * from shop;
