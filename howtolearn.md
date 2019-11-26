@@ -811,9 +811,11 @@ MariaDB [dic_order]> select * from store_name left join menu on store_name.sid =
 8 rows in set (0.002 sec)
 ```
 
-9. 資料集合  
-資料集合分成三種，union、intersect、except。  
+9. 資料表合併  
+資料表合併分成三種，union、intersect、except，且資料數量必須要相同。  
 先來看資料，再來看三者的差別。  
+*hint：mysql/mariadb不支援minus。  
+
 ```mysql
 MariaDB [dic_order]> select * from store_name left join menu on store_name.sid = menu.sid union select * from store_name right join menu on store_name.sid = menu.sid;
 +------+--------------+------+------+-----------------+-------+
@@ -832,6 +834,7 @@ MariaDB [dic_order]> select * from store_name left join menu on store_name.sid =
 ```
 
 union(聯集)
+![union](https://github.com/d93y70123123/Database-learning/blob/master/%E8%81%AF%E9%9B%86.jpg)  
 ```mysql  
 union 
 MariaDB [dic_order]> select sid from menu union select sid from store_name;
@@ -866,7 +869,8 @@ MariaDB [dic_order]> select sid from menu union all select sid from store_name;
 11 rows in set (0.001 sec)
 ```  
 
-intersect(交集)
+intersect(交集)  
+![intersect](https://github.com/d93y70123123/Database-learning/blob/master/%E4%BA%A4%E9%9B%86.jpg)  
 ```mysql  
 MariaDB [dic_order]> select sid from menu intersect select sid from store_name;
 +------+
@@ -877,10 +881,10 @@ MariaDB [dic_order]> select sid from menu intersect select sid from store_name;
 |    2 |
 +------+
 3 rows in set (0.001 sec)
-```
+```  
 
-except(差集)
-![exceptright]()  
+except(差集)  
+![exceptright](https://github.com/d93y70123123/Database-learning/blob/master/%E5%B7%AE%E9%9B%86-%E5%8F%B3.jpg)  
 ```mysql
 MariaDB [dic_order]> select sid from menu except select sid from store_name;
 +------+
@@ -889,9 +893,9 @@ MariaDB [dic_order]> select sid from menu except select sid from store_name;
 |    5 |
 +------+
 1 row in set (0.002 sec)
-```
+```  
 
-![exceptleft]()  
+![exceptleft](https://github.com/d93y70123123/Database-learning/blob/master/%E5%B7%AE%E9%9B%86-%E5%B7%A6.jpg)  
 ```mysql
 MariaDB [dic_order]> select sid from store_name except select sid from menu;
 +------+
@@ -900,7 +904,7 @@ MariaDB [dic_order]> select sid from store_name except select sid from menu;
 |    4 |
 +------+
 1 row in set (0.002 sec)
-```
+```  
 
 
 # 關於建立資料表的約束和檢查  
