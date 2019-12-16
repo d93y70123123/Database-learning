@@ -56,7 +56,8 @@ MariaDB [dic_order]> show create table aaa;
 4. 時間紀錄
 5. 數量要多
 6. 包括了(insert、update、select)  
-select又涵蓋了(=、>、<、>3 and <5、like %..%、like %.. 、 like ..%)
+select又涵蓋了(=、>、<、>3 and <5、like %..%、like %.. 、 like ..%)  
+
 了解需求後，就開始測試，這邊測試步驟如下：  
 1. 先選擇資料結構  
 2. 塞資料  
