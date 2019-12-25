@@ -179,7 +179,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 MariaDB [(none)]> CHANGE MASTER TO
     ->   MASTER_HOST='ha1',
     ->   MASTER_USER='ha_user',
-    ->   MASTER_PASSWORD='2727175#356',
+    ->   MASTER_PASSWORD='123123',
     ->   MASTER_PORT=3306,
     ->   MASTER_LOG_FILE='master1-bin.000001',
     ->   MASTER_LOG_POS=944,
