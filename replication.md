@@ -277,7 +277,6 @@ MariaDB [(none)]> show databases;
 | information_schema |
 | mysql              |
 | performance_schema |
-| test               |
 +--------------------+
 4 rows in set (0.001 sec)
 ```  
@@ -309,7 +308,6 @@ MariaDB [(none)]> show databases;
 | information_schema |
 | mysql              |
 | performance_schema |
-| test               |
 | user               |
 +--------------------+
 5 rows in set (0.001 sec)
