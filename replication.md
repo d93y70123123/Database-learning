@@ -376,4 +376,8 @@ MariaDB [user]> select * from user;
 ```
 
 
+## 參考資料  
+[Mariadb replicatio]：https://mariadb.com/kb/en/setting-up-replication/  
+
+
 
